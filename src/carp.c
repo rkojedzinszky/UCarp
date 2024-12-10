@@ -585,6 +585,7 @@ static void packethandler(unsigned char *dummy,
             if (timercmp(&sc_tv, &ch_tv, <) ||
                 (timercmp(&sc_tv, &ch_tv, ==) &&
                     iphead.ip_src.s_addr > srcip.s_addr)) {
+                (void) spawn_handler(dev_desc_fd, upscript);
                 gratuitous_arp(dev_desc_fd);
                 sc.sc_delayed_arp = garp_timeout; /* and until garp_timeout */
                 logfile(LOG_WARNING, _("Non-preferred master advertising: "
